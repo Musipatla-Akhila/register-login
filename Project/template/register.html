@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            margin-top: 50px;
+            padding: 30px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: #fff;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2 class="text-center">Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" class="form-control" id="full_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="text" class="form-control" id="phone_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="pan_card_number">PAN Card Number</label>
+                    <input type="text" class="form-control" id="pan_card_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="aadhar_number">Aadhar Number</label>
+                    <input type="text" class="form-control" id="aadhar_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $('#registerForm').submit(function(event) {
+            event.preventDefault();
+
+            const data = {
+                full_name: $('#full_name').val(),
+                email: $('#email').val(),
+                phone_number: $('#phone_number').val(),
+                address: $('#address').val(),
+                pan_card_number: $('#pan_card_number').val(),
+                aadhar_number: $('#aadhar_number').val(),
+                password: $('#password').val(),
+                confirm_password: $('#confirm_password').val(),
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/register',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function(response) {
+                    alert(response.message);
+                    window.location.href = '/login';
+                },
+                error: function(response) {
+                    alert(response.responseJSON.error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
